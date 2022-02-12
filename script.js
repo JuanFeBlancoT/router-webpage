@@ -4,6 +4,8 @@ let templates = {};
 let app_div = document.getElementById('app');
 
 function home() {
+    reloadPage();
+
     let div = document.createElement('div');
     let link = document.createElement('a');
     link.href = '#/about';
@@ -13,9 +15,12 @@ function home() {
     div.appendChild(link);
 
     app_div.appendChild(div);
+    
 };
 
 function about() {
+    reloadPage();
+
     let div = document.createElement('div');
     let link = document.createElement('a');
     link.href = '#/';
@@ -25,6 +30,7 @@ function about() {
     div.appendChild(link);
 
     app_div.appendChild(div);
+    
 };
 
 function route (path, template) {
@@ -71,3 +77,16 @@ function router(evt) {
 window.addEventListener('load', router);
 
 window.addEventListener('hashchange', router);
+
+function reloadPage(){
+    //get the actual local storage
+    if (window.localStorage) {
+        //retreive the "reload" item
+        if (!localStorage.getItem('reload')) {
+            localStorage['reload'] = true;
+            window.location.reload();
+        } else {
+            localStorage.removeItem('reload');
+        }
+    }
+}
